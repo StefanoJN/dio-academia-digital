@@ -1,0 +1,63 @@
+version: '3'
+services:
+
+#  api-jvm:
+#    container_name: api-jvm
+#    image: api-jvm
+#    build:
+#      context: .
+#      dockerfile: ./src/main/docker/Dockerfile.jvm
+#    depends_on:
+#      - postgres
+#    networks:
+#      - quarkus-postgres
+#    ports:
+#      - "8080:8080"
+
+#  api-native:
+#    container_name: api-native
+#    image: api-native
+#    build:
+#      context: .
+#      dockerfile: Dockerfile.native
+#    depends_on:
+#      - postgres
+##    ports:
+##      - 8080:8080
+
+  postgres:
+#    container_name: postgres
+    image: postgres:15.2-alpine3.17
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=academia
+    ports:
+      - '5432:5432'
+    volumes:
+      - db:/var/lib/postgresql/data
+
+#    networks:
+#      - quarkus-postgres
+
+#  pgadmin:
+#    container_name: pgadmin
+#    image: dpage/pgadmin4
+#    environment:
+#      PGADMIN_DEFAULT_EMAIL: "admin@stefano.com"
+#      PGADMIN_DEFAULT_PASSWORD: "1234"
+#    ports:
+#      - "16543:80"
+#    depends_on:
+#      - postgres
+#    networks:
+#      - quarkus-postgres
+#
+volumes:
+  db:
+    driver: local
+#
+#networks:
+#  quarkus-postgres:
+#    driver: bridge
